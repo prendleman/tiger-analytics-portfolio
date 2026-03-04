@@ -6,6 +6,13 @@
 - **Scope**: Patients, encounters (inpatient/outpatient/emergency), diagnoses (ICD), procedures (CPT), medications (NDC), labs, vitals, claims, claim lines, readmissions, risk scores, and reference tables.
 - **Assumptions**: Data is mock only; distributions (LOS, readmission rates, costs) are plausible but not calibrated to real benchmarks. No PHI; demographics and identifiers are synthetic (Faker).
 
+## Time series & PMPM forecasting (Python)
+
+- **Notebook**: `notebooks/python/time_series_pmpm_forecasting.ipynb`.
+- **PMPM**: Claims aggregated to service month; member count and total paid/charge; PMPM (per member per month) cost series.
+- **Models**: SARIMA(1,0,1) and Holt-Winters exponential smoothing; train/test split; evaluation with RMSE and MAPE.
+- **Stack**: pandas, statsmodels. Production use would add back-testing, hyperparameter tuning, and pipeline automation (e.g. Airflow, Databricks).
+
 ## Clustering & anomaly detection (Python)
 
 - **Notebook**: `notebooks/python/clustering_anomaly_detection.ipynb`.
