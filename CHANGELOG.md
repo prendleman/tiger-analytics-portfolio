@@ -4,6 +4,14 @@
 
 (No unreleased changes.)
 
+## 2024-03 (beef-up #4)
+
+- **Makefile** — targets: `install`, `data-demo`, `data-full`, `demo`, `validate`, `test`, `pipeline`, `export-notebooks`.
+- **README badges** — GitHub Actions (tests) and MIT License.
+- **docs/README.md** — documentation index (methodology, design, model cards, troubleshooting).
+- **docs/MODEL_CARD_TIMESERIES.md** — model card for PMPM time series (SARIMA, Prophet, evaluation).
+- **tests/test_time_series_forecast.py** — smoke test that time_series_forecast.py runs.
+
 ## 2024-03 (beef-up #3)
 
 - Overview notebook (`notebooks/python/00_overview.ipynb`) — intro and links to all Python notebooks.

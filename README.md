@@ -1,5 +1,7 @@
 # Healthcare Analytics Portfolio
 
+[![Tests](https://github.com/prendleman/tiger-analytics-portfolio/actions/workflows/tests.yml/badge.svg)](https://github.com/prendleman/tiger-analytics-portfolio/actions/workflows/tests.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Portfolio project demonstrating **Lead Data Scientist** skills: Python and R, ML (classification, time series, clustering, anomaly detection), complex SQL, dimensional/relational data modeling, and healthcare-domain analytics. Aligned with roles in analytics consulting (e.g. Tiger Analytics) and healthcare/life sciences.
 
 **What's inside:** Synthetic healthcare data (patients, encounters, claims, diagnoses, labs, readmissions), config-driven generation, readmission prediction (Random Forest + GridSearchCV), PMPM time series forecasting (SARIMA, Prophet, exponential smoothing), clustering and anomaly detection, SQL feature/reporting scripts, and pipeline/MLOps examples (orchestration script, Airflow DAG, Spark job). See [docs/DESIGN.md](docs/DESIGN.md) for design overview and data flow.
@@ -13,7 +15,7 @@ pip install -r requirements.txt
 python scripts/run_demo.py   # ~1–2 min: generate demo data + run readmission + time series
 ```
 
-Then open the notebooks in `notebooks/python/` or run the full pipeline with `python pipelines/run_pipeline.py` (use `--skip-data` if you already have data in `data/raw/`).
+Then open the notebooks in `notebooks/python/` or run the full pipeline with `python pipelines/run_pipeline.py` (use `--skip-data` if you already have data in `data/raw/`). On a system with `make`: `make install && make demo` (or `make data-demo` then `make pipeline`).
 
 ## Architecture
 
@@ -181,7 +183,8 @@ See `data/schema/README.md` for the full data dictionary and ER diagram.
 
 - **Methodology**: `docs/methodology.md` — target definition, features, model choice, and reproducibility notes.
 - **Design**: `docs/DESIGN.md` — data flow, design decisions, and trade-offs.
-- **Model card**: `docs/MODEL_CARD.md` — readmission model overview, intended use, and limitations.
+- **Model card**: `docs/MODEL_CARD.md` (readmission), `docs/MODEL_CARD_TIMESERIES.md` (PMPM forecasting).
+- **Docs index**: [docs/README.md](docs/README.md) — links to all documentation.
 - **Changelog**: [CHANGELOG.md](CHANGELOG.md) — version history.
 - **Troubleshooting**: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) — common issues. **Contributing**: [CONTRIBUTING.md](CONTRIBUTING.md).
 - **Export notebooks to HTML**: `python scripts/export_notebooks.py` (writes to `docs/notebooks/`; requires `nbconvert`).
