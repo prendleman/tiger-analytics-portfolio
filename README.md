@@ -12,6 +12,7 @@ Portfolio project demonstrating **Lead Data Scientist** skills: Python and R, ML
 | **Dimensional / relational modeling** | `data/schema/ddl.sql` and `data/schema/README.md`: star-style relationships, reference tables, data dictionary, ER overview. |
 | **Healthcare / pharma domain** | Mock schema and data: patients, encounters, diagnoses, procedures, medications, labs, claims, readmissions, risk scores. |
 | **Reproducibility & communication** | README, `docs/methodology.md`, requirements.txt, clear paths and run instructions. |
+| **MLOps / pipelines** | `pipelines/run_pipeline.py` (orchestration); `pipelines/dag_airflow_example.py` (Airflow DAG); `src/python/spark_claims_agg.py` (PySpark aggregation). |
 
 ## Repository structure
 
@@ -27,6 +28,7 @@ src/
   python/                  # Data generation, readmission model script
   r/                       # R script: EDA summary
 sql/                       # Feature table + utilization KPIs
+pipelines/                 # Orchestration + Airflow DAG example
 docs/                      # Methodology, assumptions, limitations
 requirements.txt
 ```
@@ -69,7 +71,27 @@ Rscript src/r/healthcare_eda.R
 
 Or knit `notebooks/r/healthcare_eda.Rmd` to HTML (RStudio or `rmarkdown::render()`).
 
-### 5. SQL
+### 5. Pipeline (MLOps-style)
+
+Run the full workflow from repo root (optional: skip data gen if `data/raw/` already exists):
+
+```bash
+python pipelines/run_pipeline.py              # data gen + readmission + time series
+python pipelines/run_pipeline.py --skip-data   # use existing data
+```
+
+**Airflow:** Copy `pipelines/dag_airflow_example.py` into your DAGs folder; set `REPO_ROOT` to the repo path. Requires `apache-airflow`.
+
+**Spark:** Claims aggregation by month (PMPM-style) with PySpark. Requires `pyspark`. From repo root:
+
+```bash
+pip install pyspark
+spark-submit src/python/spark_claims_agg.py
+```
+
+Output: `data/processed/claims_by_month/` (parquet).
+
+### 6. SQL
 
 - Load schema: run `data/schema/ddl.sql` in your database (SQL Server or PostgreSQL).
 - Load CSVs into the tables (bulk insert or ETL), then run:
