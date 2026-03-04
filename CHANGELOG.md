@@ -4,6 +4,14 @@
 
 (No unreleased changes.)
 
+## 2024-03 (beef-up #3)
+
+- Overview notebook (`notebooks/python/00_overview.ipynb`) — intro and links to all Python notebooks.
+- Export notebooks to HTML (`scripts/export_notebooks.py`) — static HTML in `docs/notebooks/` for viewing without Jupyter.
+- R readmission model (`src/r/readmission_model_r.R`) — logistic regression for 30-day readmission; optional pROC for AUC.
+- **TROUBLESHOOTING.md** — common issues (paths, missing modules, R, Prophet).
+- **CONTRIBUTING.md** — how to run, test, and suggest changes.
+
 ## 2024-03 (beef-up #2)
 
 - Data validation script (`src/python/validate_data.py`)

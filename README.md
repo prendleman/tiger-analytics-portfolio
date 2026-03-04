@@ -108,6 +108,7 @@ python src/python/readmission_model.py
 
 Or open and run `notebooks/python/readmission_prediction.ipynb` (Jupyter).
 
+**Overview:** `notebooks/python/00_overview.ipynb` — intro and links to all notebooks.  
 **Time series & PMPM forecasting:** `notebooks/python/time_series_pmpm_forecasting.ipynb` — member-month aggregates from claims, SARIMA and exponential smoothing, MAPE/RMSE evaluation.  
 **Clustering & anomaly detection:** `notebooks/python/clustering_anomaly_detection.ipynb` — KMeans encounter segments, Isolation Forest for outlier encounters.
 
@@ -119,7 +120,8 @@ From repo root:
 Rscript src/r/healthcare_eda.R
 ```
 
-Or knit `notebooks/r/healthcare_eda.Rmd` to HTML (RStudio or `rmarkdown::render()`).
+Or knit `notebooks/r/healthcare_eda.Rmd` to HTML (RStudio or `rmarkdown::render()`).  
+**R readmission model:** `Rscript src/r/readmission_model_r.R` — logistic regression for 30-day readmission (mirrors Python model).
 
 ### 5. Pipeline (MLOps-style)
 
@@ -181,6 +183,8 @@ See `data/schema/README.md` for the full data dictionary and ER diagram.
 - **Design**: `docs/DESIGN.md` — data flow, design decisions, and trade-offs.
 - **Model card**: `docs/MODEL_CARD.md` — readmission model overview, intended use, and limitations.
 - **Changelog**: [CHANGELOG.md](CHANGELOG.md) — version history.
+- **Troubleshooting**: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) — common issues. **Contributing**: [CONTRIBUTING.md](CONTRIBUTING.md).
+- **Export notebooks to HTML**: `python scripts/export_notebooks.py` (writes to `docs/notebooks/`; requires `nbconvert`).
 - **Limitations**: Data is synthetic (Faker + pandas); not for clinical or production use. Models are for portfolio demonstration only.
 
 ## Resume

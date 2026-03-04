@@ -3,6 +3,7 @@ data/raw/*.csv
 data/raw/*.parquet
 !data/raw/.gitkeep
 data/processed/
+docs/notebooks/
 
 # Python
 __pycache__/
