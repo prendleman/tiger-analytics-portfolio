@@ -1,0 +1,7 @@
+# Small config for quick demo (~1 min). Use: python src/python/generate_healthcare_data.py --config config/demo.yaml
+n_patients: 1000
+n_encounters: 5000
+n_labs_per_enc: 3
+n_claim_lines_per_claim: 4
+date_start: "2022-01-01"
+date_end: "2024-06-30"

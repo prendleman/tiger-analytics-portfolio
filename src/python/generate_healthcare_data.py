@@ -1,9 +1,9 @@
 """
 Generate healthcare mock dataset with referential integrity.
 Uses Faker + pandas. Outputs CSVs to data/raw/.
-Run from repo root: python src/python/generate_healthcare_data.py
+Run from repo root: python src/python/generate_healthcare_data.py [--config config/demo.yaml]
 """
-import os
+import argparse
 import random
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -20,7 +20,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = REPO_ROOT / "data" / "raw"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# Config: scaled for portfolio (50k patients, 200k encounters; adjust if needed)
+# Default config (overridden by --config if provided)
 CONFIG = {
     "n_patients": 50_000,
     "n_encounters": 200_000,
@@ -30,6 +30,16 @@ CONFIG = {
     "date_end": "2024-12-31",
 }
 FAKE = Faker()
+
+
+def load_config(path: Path) -> dict:
+    try:
+        import yaml
+        with open(path) as f:
+            cfg = yaml.safe_load(f)
+        return {k: v for k, v in cfg.items() if k in CONFIG}
+    except Exception:
+        return {}
 
 
 def write_csv(name: str, df: pd.DataFrame) -> None:
@@ -413,6 +423,15 @@ def generate_risk_scores(patients: pd.DataFrame) -> None:
 
 
 def main():
+    global CONFIG
+    parser = argparse.ArgumentParser(description="Generate healthcare mock data")
+    parser.add_argument("--config", type=str, default="", help="Path to config YAML (e.g. config/demo.yaml)")
+    args = parser.parse_args()
+    if args.config:
+        cfg_path = REPO_ROOT / args.config
+        if cfg_path.exists():
+            CONFIG.update(load_config(cfg_path))
+            print("Using config from", cfg_path)
     print("Generating reference tables...")
     refs = generate_reference_tables()
     print("Generating organizations...")

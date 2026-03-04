@@ -1,6 +1,47 @@
 # Healthcare Analytics Portfolio
 
-Portfolio project demonstrating **Lead Data Scientist** skills: Python and R, ML (classification), complex SQL, dimensional/relational data modeling, and healthcare-domain analytics. Aligned with roles in analytics consulting (e.g. Tiger Analytics) and healthcare/life sciences.
+Portfolio project demonstrating **Lead Data Scientist** skills: Python and R, ML (classification, time series, clustering, anomaly detection), complex SQL, dimensional/relational data modeling, and healthcare-domain analytics. Aligned with roles in analytics consulting (e.g. Tiger Analytics) and healthcare/life sciences.
+
+**What's inside:** Synthetic healthcare data (patients, encounters, claims, diagnoses, labs, readmissions), config-driven generation, readmission prediction (Random Forest + GridSearchCV), PMPM time series forecasting (SARIMA, Prophet, exponential smoothing), clustering and anomaly detection, SQL feature/reporting scripts, and pipeline/MLOps examples (orchestration script, Airflow DAG, Spark job). See [docs/DESIGN.md](docs/DESIGN.md) for design overview and data flow.
+
+## Quick start
+
+```bash
+git clone https://github.com/prendleman/tiger-analytics-portfolio.git
+cd tiger-analytics-portfolio
+pip install -r requirements.txt
+python scripts/run_demo.py   # ~1–2 min: generate demo data + run readmission + time series
+```
+
+Then open the notebooks in `notebooks/python/` or run the full pipeline with `python pipelines/run_pipeline.py` (use `--skip-data` if you already have data in `data/raw/`).
+
+## Architecture
+
+```mermaid
+flowchart LR
+  subgraph gen [Data]
+    Config[config]
+    Gen[generate_healthcare_data]
+    Raw[data/raw CSVs]
+  end
+  subgraph ml [Models]
+    Readmit[readmission_model]
+    TS[time_series_forecast]
+    Cluster[clustering + anomaly]
+  end
+  subgraph pipe [Pipelines]
+    Run[run_pipeline.py]
+    Airflow[Airflow DAG]
+    Spark[Spark agg]
+  end
+  Config --> Gen --> Raw
+  Raw --> Readmit
+  Raw --> TS
+  Raw --> Cluster
+  Raw --> Run
+  Run --> Airflow
+  Raw --> Spark
+```
 
 ## Skills mapped to JD
 
@@ -27,10 +68,14 @@ notebooks/
 src/
   python/                  # Data generation, readmission model script
   r/                       # R script: EDA summary
-sql/                       # Feature table + utilization KPIs
+sql/                       # Feature table, PMPM summary, utilization KPIs
 pipelines/                 # Orchestration + Airflow DAG example
-docs/                      # Methodology, assumptions, limitations
+config/                    # config.yaml (full), demo.yaml (quick run)
+scripts/                   # run_demo.py, push_to_github.ps1
+tests/                     # pytest: data generation, readmission model
+docs/                      # Methodology, design overview, limitations
 requirements.txt
+LICENSE
 ```
 
 ## Setup and run
@@ -44,10 +89,15 @@ pip install -r requirements.txt
 
 ### 2. Generate mock data
 
-Output is written to `data/raw/` (CSVs). Default config: 50k patients, 200k encounters, ~1M labs, ~1.6M claim lines. Adjust in `src/python/generate_healthcare_data.py`.
+Output is written to `data/raw/` (CSVs). Use **demo config** for a quick run (~1 min), or default for full scale.
 
 ```bash
+# Quick demo (1k patients, 5k encounters)
+python src/python/generate_healthcare_data.py --config config/demo.yaml
+
+# Full scale (50k patients, 200k encounters, ~8 min)
 python src/python/generate_healthcare_data.py
+# Or: python src/python/generate_healthcare_data.py --config config/config.yaml
 ```
 
 ### 3. Python: readmission model
@@ -98,7 +148,15 @@ Output: `data/processed/claims_by_month/` (parquet).
 - Load schema: run `data/schema/ddl.sql` in your database (SQL Server or PostgreSQL).
 - Load CSVs into the tables (bulk insert or ETL), then run:
   - `sql/feature_readmission.sql` — encounter-level feature set for ML/reporting.
+  - `sql/monthly_pmpm_summary.sql` — monthly PMPM aggregates for forecasting.
   - `sql/report_utilization_kpis.sql` — utilization and cost by facility and payer.
+
+### 7. Tests
+
+```bash
+# Generate demo data first, then:
+pytest tests/ -v
+```
 
 ## Data summary
 
@@ -112,7 +170,8 @@ See `data/schema/README.md` for the full data dictionary and ER diagram.
 ## Methodology and limitations
 
 - **Methodology**: `docs/methodology.md` — target definition, features, model choice, and reproducibility notes.
-- **Limitations**: Data is synthetic (Faker + pandas); not for clinical or production use. Model is for portfolio demonstration only.
+- **Design**: `docs/DESIGN.md` — data flow, design decisions, and trade-offs.
+- **Limitations**: Data is synthetic (Faker + pandas); not for clinical or production use. Models are for portfolio demonstration only.
 
 ## Resume
 
