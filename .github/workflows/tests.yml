@@ -1,0 +1,28 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Generate demo data and validate
+        run: |
+          python src/python/generate_healthcare_data.py --config config/demo.yaml
+          python src/python/validate_data.py --data-dir data/raw
+      - name: Run readmission model
+        run: python src/python/readmission_model.py
+      - name: Run time series forecast
+        run: python src/python/time_series_forecast.py
+      - name: Pytest
+        run: pytest tests/ -v --tb=short

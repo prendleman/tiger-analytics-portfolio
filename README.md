@@ -148,10 +148,18 @@ Output: `data/processed/claims_by_month/` (parquet).
 - Load schema: run `data/schema/ddl.sql` in your database (SQL Server or PostgreSQL).
 - Load CSVs into the tables (bulk insert or ETL), then run:
   - `sql/feature_readmission.sql` — encounter-level feature set for ML/reporting.
-  - `sql/monthly_pmpm_summary.sql` — monthly PMPM aggregates for forecasting.
+  - `sql/monthly_pmpm_summary.sql` — monthly PMPM aggregates (SQL Server); `monthly_pmpm_summary_pg.sql` for PostgreSQL.
   - `sql/report_utilization_kpis.sql` — utilization and cost by facility and payer.
 
-### 7. Tests
+### 7. Data validation
+
+After generating data, check referential integrity and row counts:
+
+```bash
+python src/python/validate_data.py --data-dir data/raw
+```
+
+### 8. Tests
 
 ```bash
 # Generate demo data first, then:
@@ -171,6 +179,8 @@ See `data/schema/README.md` for the full data dictionary and ER diagram.
 
 - **Methodology**: `docs/methodology.md` — target definition, features, model choice, and reproducibility notes.
 - **Design**: `docs/DESIGN.md` — data flow, design decisions, and trade-offs.
+- **Model card**: `docs/MODEL_CARD.md` — readmission model overview, intended use, and limitations.
+- **Changelog**: [CHANGELOG.md](CHANGELOG.md) — version history.
 - **Limitations**: Data is synthetic (Faker + pandas); not for clinical or production use. Models are for portfolio demonstration only.
 
 ## Resume
