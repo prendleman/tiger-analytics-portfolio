@@ -3,15 +3,15 @@
 ## Data
 
 - **Source**: Synthetically generated healthcare dataset (see `data/schema/` and `src/python/generate_healthcare_data.py`).
-- **Scope**: Patients, encounters (inpatient/outpatient/emergency), diagnoses (ICD), procedures (CPT), medications (NDC), labs, vitals, claims, claim lines, readmissions, risk scores, and reference tables.
+- **Scope**: Patients, encounters (inpatient/outpatient/emergency), diagnoses (ICD), procedures (CPT), medications (NDC), labs, vitals, claims, claim lines, readmissions, risk scores, and reference tables. For PMPM, member months are derived from distinct patients per month; production PMPM typically uses eligibility/membership tables.
 - **Assumptions**: Data is mock only; distributions (LOS, readmission rates, costs) are plausible but not calibrated to real benchmarks. No PHI; demographics and identifiers are synthetic (Faker).
 
 ## Time series & PMPM forecasting (Python)
 
 - **Notebook**: `notebooks/python/time_series_pmpm_forecasting.ipynb`.
-- **PMPM**: Claims aggregated to service month; member count and total paid/charge; PMPM (per member per month) cost series.
-- **Models**: SARIMA(1,0,1) and Holt-Winters exponential smoothing; train/test split; evaluation with RMSE and MAPE.
-- **Stack**: pandas, statsmodels. Production use would add back-testing, hyperparameter tuning, and pipeline automation (e.g. Airflow, Databricks).
+- **PMPM**: Claims aggregated to service month; member count and total paid/charge; PMPM (per member per month) cost series. In production, member months often come from eligibility/membership data; this mock uses distinct patients per month as a proxy.
+- **Models**: SARIMA(1,0,1) and Holt-Winters exponential smoothing; Prophet is an alternative for seasonal series (add `prophet` and use in notebook if desired). Train/test split; evaluation with RMSE and MAPE.
+- **Stack**: pandas, statsmodels. Production use would add back-testing, hyperparameter tuning, and pipeline automation (e.g. Airflow, Databricks). Scripts and DAG are designed to plug into production schedulers.
 
 ## Clustering & anomaly detection (Python)
 

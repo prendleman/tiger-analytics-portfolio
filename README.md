@@ -12,7 +12,7 @@ Portfolio project demonstrating **Lead Data Scientist** skills: Python and R, ML
 | **Dimensional / relational modeling** | `data/schema/ddl.sql` and `data/schema/README.md`: star-style relationships, reference tables, data dictionary, ER overview. |
 | **Healthcare / pharma domain** | Mock schema and data: patients, encounters, diagnoses, procedures, medications, labs, claims, readmissions, risk scores. |
 | **Reproducibility & communication** | README, `docs/methodology.md`, requirements.txt, clear paths and run instructions. |
-| **MLOps / pipelines** | `pipelines/run_pipeline.py` (orchestration); `pipelines/dag_airflow_example.py` (Airflow DAG); `src/python/spark_claims_agg.py` (PySpark aggregation). |
+| **MLOps / pipelines** | `pipelines/run_pipeline.py` (orchestration); `pipelines/dag_airflow_example.py` (Airflow DAG); `src/python/spark_claims_agg.py` (PySpark). Scripts and DAG are designed to plug into production schedulers (Airflow, Databricks). |
 
 ## Repository structure
 
@@ -81,6 +81,8 @@ python pipelines/run_pipeline.py --skip-data   # use existing data
 ```
 
 **Airflow:** Copy `pipelines/dag_airflow_example.py` into your DAGs folder; set `REPO_ROOT` to the repo path. Requires `apache-airflow`.
+
+**Databricks:** Notebooks and scripts run as-is on Databricks (Python / Spark); use the same paths or mount the repo.
 
 **Spark:** Claims aggregation by month (PMPM-style) with PySpark. Requires `pyspark`. From repo root:
 
