@@ -6,6 +6,12 @@
 - **Scope**: Patients, encounters (inpatient/outpatient/emergency), diagnoses (ICD), procedures (CPT), medications (NDC), labs, vitals, claims, claim lines, readmissions, risk scores, and reference tables.
 - **Assumptions**: Data is mock only; distributions (LOS, readmission rates, costs) are plausible but not calibrated to real benchmarks. No PHI; demographics and identifiers are synthetic (Faker).
 
+## Clustering & anomaly detection (Python)
+
+- **Notebook**: `notebooks/python/clustering_anomaly_detection.ipynb`.
+- **Clustering**: KMeans (k=4) on encounter-level features: LOS, age, diagnosis count, total paid. Segments encounters by utilization/acuity for reporting or targeting.
+- **Anomaly detection**: Isolation Forest (contamination=5%) on the same scaled features; flags outlier encounters (e.g. unusual cost or LOS) for review.
+
 ## Readmission prediction (Python)
 
 - **Target**: Binary `readmit_30` — whether an encounter had a 30-day readmission (from `readmissions.is_30_day`).

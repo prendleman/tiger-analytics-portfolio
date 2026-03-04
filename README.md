@@ -7,7 +7,7 @@ Portfolio project demonstrating **Lead Data Scientist** skills: Python and R, ML
 | JD requirement | Where demonstrated |
 |----------------|--------------------|
 | **Python & R** | Python: data generation, readmission model, EDA notebook. R: descriptive analytics and visualization (Rmd + script). |
-| **Machine learning** | 30-day readmission binary classification (Random Forest); feature engineering from encounters, diagnoses, labs. |
+| **Machine learning** | 30-day readmission classification (Random Forest); **clustering** (KMeans on utilization/acuity); **anomaly detection** (Isolation Forest on encounter cost/LOS). |
 | **Complex SQL** | `sql/feature_readmission.sql` (joins, CTEs, aggregations); `sql/report_utilization_kpis.sql` (reporting KPIs). |
 | **Dimensional / relational modeling** | `data/schema/ddl.sql` and `data/schema/README.md`: star-style relationships, reference tables, data dictionary, ER overview. |
 | **Healthcare / pharma domain** | Mock schema and data: patients, encounters, diagnoses, procedures, medications, labs, claims, readmissions, risk scores. |
@@ -21,7 +21,7 @@ data/
   raw/                     # Generated CSVs (run generator first)
   schema/                 # DDL, data dictionary, ER (see schema/README.md)
 notebooks/
-  python/                  # Jupyter: readmission prediction (EDA + ML)
+  python/                  # Jupyter: readmission prediction; clustering & anomaly detection
   r/                       # R Markdown: descriptive analytics & viz
 src/
   python/                  # Data generation, readmission model script
@@ -42,7 +42,7 @@ pip install -r requirements.txt
 
 ### 2. Generate mock data
 
-Output is written to `data/raw/` (CSVs). Config (row counts, date range) is in `src/python/generate_healthcare_data.py`.
+Output is written to `data/raw/` (CSVs). Default config: 50k patients, 200k encounters, ~1M labs, ~1.6M claim lines. Adjust in `src/python/generate_healthcare_data.py`.
 
 ```bash
 python src/python/generate_healthcare_data.py
@@ -55,6 +55,8 @@ python src/python/readmission_model.py
 ```
 
 Or open and run `notebooks/python/readmission_prediction.ipynb` (Jupyter).
+
+**Clustering & anomaly detection:** `notebooks/python/clustering_anomaly_detection.ipynb` — KMeans encounter segments, Isolation Forest for outlier encounters.
 
 ### 4. R: descriptive analytics
 

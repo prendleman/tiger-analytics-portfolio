@@ -20,12 +20,12 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = REPO_ROOT / "data" / "raw"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# Config: scale up for full run (e.g. 50k patients, 500k encounters)
+# Config: scaled for portfolio (50k patients, 200k encounters; adjust if needed)
 CONFIG = {
-    "n_patients": 3_000,
-    "n_encounters": 10_000,
-    "n_labs_per_enc": 3,
-    "n_claim_lines_per_claim": 4,
+    "n_patients": 50_000,
+    "n_encounters": 200_000,
+    "n_labs_per_enc": 5,
+    "n_claim_lines_per_claim": 8,
     "date_start": "2020-01-01",
     "date_end": "2024-12-31",
 }
