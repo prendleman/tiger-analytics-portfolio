@@ -7,6 +7,16 @@ on:
     branches: [main]
 
 jobs:
+  docker:
+    name: Docker build and demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t tiger-portfolio .
+      - name: Run demo in container
+        run: docker run --rm tiger-portfolio
+
   test:
     runs-on: ubuntu-latest
     steps:

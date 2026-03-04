@@ -4,7 +4,18 @@
 
 (No unreleased changes.)
 
-## 2024-03 (beef-up #5)
+## 2024-03 (Release 7)
+
+- **Pre-commit** — `.pre-commit-config.yaml`: Black, Ruff (with --fix), trailing-whitespace, end-of-file-fixer, check-yaml, check-merge-conflict. Optional: `pip install pre-commit && pre-commit install`.
+- **Pinned dependencies** — `requirements.in` is the source; `requirements.txt` is generated with `pip-compile` for reproducible installs. CONTRIBUTING and README updated.
+- **CI Docker** — New workflow job: build the Docker image and run the demo in the container on every push/PR.
+
+## 2024-03 (Release 6)
+
+- **Docker** — `Dockerfile` and `.dockerignore` for one-command reproducible run: `docker build -t tiger-portfolio .` then `docker run --rm tiger-portfolio` runs the full demo.
+- **docs/EXECUTIVE_SUMMARY.md** — One-page stakeholder summary: what we built, key takeaways, limitations, next steps (for client/PM-style communication).
+
+## 2024-03 (Release 5)
 
 - **SECURITY.md** — Portfolio context, no production use, how to report issues.
 - **CITATION.cff** — Citation file for the repo (authors, URL, date).
@@ -12,7 +23,7 @@
 - **.editorconfig** — Indentation and line endings for Python, YAML, Markdown, JSON.
 - **CI** — Optional dependency audit step (`pip-audit`; non-blocking).
 
-## 2024-03 (beef-up #4)
+## 2024-03 (Release 4)
 
 - **Makefile** — targets: `install`, `data-demo`, `data-full`, `demo`, `validate`, `test`, `pipeline`, `export-notebooks`.
 - **README badges** — GitHub Actions (tests) and MIT License.
@@ -20,7 +31,7 @@
 - **docs/MODEL_CARD_TIMESERIES.md** — model card for PMPM time series (SARIMA, Prophet, evaluation).
 - **tests/test_time_series_forecast.py** — smoke test that time_series_forecast.py runs.
 
-## 2024-03 (beef-up #3)
+## 2024-03 (Release 3)
 
 - Overview notebook (`notebooks/python/00_overview.ipynb`) — intro and links to all Python notebooks.
 - Export notebooks to HTML (`scripts/export_notebooks.py`) — static HTML in `docs/notebooks/` for viewing without Jupyter.
@@ -28,14 +39,14 @@
 - **TROUBLESHOOTING.md** — common issues (paths, missing modules, R, Prophet).
 - **CONTRIBUTING.md** — how to run, test, and suggest changes.
 
-## 2024-03 (beef-up #2)
+## 2024-03 (Release 2)
 
 - Data validation script (`src/python/validate_data.py`)
 - CI: GitHub Actions workflow (`.github/workflows/tests.yml`) — generate demo data, validate, run models, pytest
 - Model card for readmission model (`docs/MODEL_CARD.md`)
 - PostgreSQL variant of monthly PMPM SQL (`sql/monthly_pmpm_summary_pg.sql`)
 
-## 2024-03 (beef-up #1)
+## 2024-03 (Release 1)
 
 - **Config**: `config/config.yaml`, `config/demo.yaml`; generator supports `--config`
 - **Demo**: One-command `scripts/run_demo.py` (generate demo data + readmission + time series)

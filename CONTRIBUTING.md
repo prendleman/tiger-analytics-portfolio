@@ -32,6 +32,29 @@ This is a portfolio repo; contributions are welcome as suggestions or pull reque
 - Open an issue to describe a bug or enhancement.
 - For code: fork, create a branch, make changes, run tests, then open a pull request against `main`.
 
+## Pre-commit (optional)
+
+To run Black, Ruff, and trailing-whitespace checks before each commit:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+Then `pre-commit` runs on `git commit`. To run on all files: `pre-commit run --all-files`.
+
+## Pinned dependencies
+
+- **requirements.in** — direct dependencies (edit this to add/change packages).
+- **requirements.txt** — full pinned tree from `pip-compile` for reproducible installs.
+
+To regenerate after editing `requirements.in`:
+
+```bash
+pip install pip-tools
+pip-compile requirements.in -o requirements.txt
+```
+
 ## Code and data
 
 - **Data** in `data/raw/*.csv` is generated; do not commit large CSVs (they are gitignored). Commit only code, config, and docs.

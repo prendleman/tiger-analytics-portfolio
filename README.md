@@ -17,6 +17,8 @@ python scripts/run_demo.py   # ~1–2 min: generate demo data + run readmission 
 
 Then open the notebooks in `notebooks/python/` or run the full pipeline with `python pipelines/run_pipeline.py` (use `--skip-data` if you already have data in `data/raw/`). On a system with `make`: `make install && make demo` (or `make data-demo` then `make pipeline`).
 
+**Docker (reproducible run):** `docker build -t tiger-portfolio .` then `docker run --rm tiger-portfolio` runs the demo (data gen + readmission + time series) in a single environment. See [Docker](#docker) below.
+
 ## Architecture
 
 ```mermaid
@@ -88,6 +90,8 @@ LICENSE
 cd tiger-analytics-portfolio
 pip install -r requirements.txt
 ```
+
+*(Requirements are pinned for reproducibility. To update: edit `requirements.in`, then `pip install pip-tools && pip-compile requirements.in -o requirements.txt`. See [CONTRIBUTING.md](CONTRIBUTING.md).)*
 
 ### 2. Generate mock data
 
@@ -170,6 +174,17 @@ python src/python/validate_data.py --data-dir data/raw
 pytest tests/ -v
 ```
 
+### 9. Docker
+
+One-command reproducible run (no local Python install required):
+
+```bash
+docker build -t tiger-portfolio .
+docker run --rm tiger-portfolio
+```
+
+This generates demo data and runs the readmission and time series scripts inside the container. To explore interactively: `docker run --rm -it tiger-portfolio /bin/bash`, then run `python scripts/run_demo.py` or individual scripts.
+
 ## Data summary
 
 - **Reference**: facility types, specialties, ICD/CPT/NDC codes.
@@ -184,7 +199,7 @@ See `data/schema/README.md` for the full data dictionary and ER diagram.
 - **Methodology**: `docs/methodology.md` — target definition, features, model choice, and reproducibility notes.
 - **Design**: `docs/DESIGN.md` — data flow, design decisions, and trade-offs.
 - **Model card**: `docs/MODEL_CARD.md` (readmission), `docs/MODEL_CARD_TIMESERIES.md` (PMPM forecasting).
-- **Docs index**: [docs/README.md](docs/README.md) — links to all documentation. **Results**: [docs/RESULTS.md](docs/RESULTS.md) — typical metrics on demo data.
+- **Docs index**: [docs/README.md](docs/README.md) — links to all documentation. **Executive summary**: [docs/EXECUTIVE_SUMMARY.md](docs/EXECUTIVE_SUMMARY.md) — one-page stakeholder overview. **Results**: [docs/RESULTS.md](docs/RESULTS.md) — typical metrics on demo data.
 - **Changelog**: [CHANGELOG.md](CHANGELOG.md). **Citing**: [CITATION.cff](CITATION.cff). **Security**: [SECURITY.md](SECURITY.md).
 - **Troubleshooting**: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) — common issues. **Contributing**: [CONTRIBUTING.md](CONTRIBUTING.md).
 - **Export notebooks to HTML**: `python scripts/export_notebooks.py` (writes to `docs/notebooks/`; requires `nbconvert`).

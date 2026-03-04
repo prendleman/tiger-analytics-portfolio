@@ -2,6 +2,7 @@
 
 | Doc | Description |
 |-----|--------------|
+| [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md) | One-page stakeholder overview: what we built, takeaways, limitations, next steps |
 | [methodology.md](methodology.md) | Data source, target definitions, model choices, reproducibility |
 | [DESIGN.md](DESIGN.md) | Data flow, design decisions, trade-offs |
 | [MODEL_CARD.md](MODEL_CARD.md) | Readmission model: intended use, evaluation, limitations |

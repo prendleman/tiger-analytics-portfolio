@@ -1,0 +1,26 @@
+# Git and IDE
+.git
+.gitignore
+.cursor
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+.coverage
+htmlcov
+
+# Generated data (rebuilt in container)
+data/raw
+data/processed
+
+# Docs output (optional)
+docs/notebooks
+
+# Local / OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Keep config, scripts, src, pipelines, sql, schema, tests, notebooks
