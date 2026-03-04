@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: "Healthcare Analytics Portfolio"
+message: "If you use this portfolio in teaching, hiring, or reference, please cite it as below."
+authors:
+  - family-names: "Rendleman"
+    given-names: "Paul"
+    email: "therendle@gmail.com"
+url: "https://github.com/prendleman/tiger-analytics-portfolio"
+date-released: 2024-03-04
+type: software

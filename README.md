@@ -184,8 +184,8 @@ See `data/schema/README.md` for the full data dictionary and ER diagram.
 - **Methodology**: `docs/methodology.md` — target definition, features, model choice, and reproducibility notes.
 - **Design**: `docs/DESIGN.md` — data flow, design decisions, and trade-offs.
 - **Model card**: `docs/MODEL_CARD.md` (readmission), `docs/MODEL_CARD_TIMESERIES.md` (PMPM forecasting).
-- **Docs index**: [docs/README.md](docs/README.md) — links to all documentation.
-- **Changelog**: [CHANGELOG.md](CHANGELOG.md) — version history.
+- **Docs index**: [docs/README.md](docs/README.md) — links to all documentation. **Results**: [docs/RESULTS.md](docs/RESULTS.md) — typical metrics on demo data.
+- **Changelog**: [CHANGELOG.md](CHANGELOG.md). **Citing**: [CITATION.cff](CITATION.cff). **Security**: [SECURITY.md](SECURITY.md).
 - **Troubleshooting**: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) — common issues. **Contributing**: [CONTRIBUTING.md](CONTRIBUTING.md).
 - **Export notebooks to HTML**: `python scripts/export_notebooks.py` (writes to `docs/notebooks/`; requires `nbconvert`).
 - **Limitations**: Data is synthetic (Faker + pandas); not for clinical or production use. Models are for portfolio demonstration only.

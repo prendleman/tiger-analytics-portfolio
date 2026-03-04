@@ -4,6 +4,14 @@
 
 (No unreleased changes.)
 
+## 2024-03 (beef-up #5)
+
+- **SECURITY.md** — Portfolio context, no production use, how to report issues.
+- **CITATION.cff** — Citation file for the repo (authors, URL, date).
+- **docs/RESULTS.md** — One-page results summary (typical AUC, MAPE, etc. on demo data).
+- **.editorconfig** — Indentation and line endings for Python, YAML, Markdown, JSON.
+- **CI** — Optional dependency audit step (`pip-audit`; non-blocking).
+
 ## 2024-03 (beef-up #4)
 
 - **Makefile** — targets: `install`, `data-demo`, `data-full`, `demo`, `validate`, `test`, `pipeline`, `export-notebooks`.
