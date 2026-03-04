@@ -1,0 +1,59 @@
+---
+title: "Healthcare Mock Data - Descriptive Analytics & Visualization"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+# Path: run from repo root or set DATA_DIR
+DATA_DIR <- if (dir.exists("data/raw")) "data/raw" else file.path("..", "..", "data", "raw")
+```
+
+## Load data
+
+```{r load}
+patients   <- read.csv(file.path(DATA_DIR, "patients.csv"))
+encounters <- read.csv(file.path(DATA_DIR, "encounters.csv"))
+encounters$admit_date    <- as.POSIXct(encounters$admit_date)
+encounters$discharge_date <- as.POSIXct(encounters$discharge_date)
+claims     <- read.csv(file.path(DATA_DIR, "claims.csv"))
+readmissions <- read.csv(file.path(DATA_DIR, "readmissions.csv"))
+```
+
+## Encounter volume by type
+
+```{r encounter-type}
+tbl <- table(encounters$encounter_type)
+barplot(tbl, main = "Encounters by type", col = "steelblue", las = 1)
+```
+
+## Length of stay (inpatient)
+
+```{r los}
+encounters$los_days <- as.numeric(difftime(encounters$discharge_date, encounters$admit_date, units = "days"))
+inpatient <- encounters[encounters$encounter_type == "inpatient", ]
+hist(inpatient$los_days, breaks = 30, main = "Length of stay (inpatient, days)", xlab = "Days", col = "steelblue")
+summary(inpatient$los_days)
+```
+
+## Claims: total paid by claim type
+
+```{r claims}
+agg <- aggregate(total_paid ~ claim_type, data = claims, FUN = function(x) c(mean = mean(x), sum = sum(x), n = length(x)))
+agg
+boxplot(total_paid ~ claim_type, data = claims, main = "Total paid by claim type", col = "lightblue")
+```
+
+## 30-day readmissions
+
+```{r readmissions}
+n_30 <- sum(readmissions$is_30_day == 1)
+n_total <- nrow(readmissions)
+cat("30-day readmissions:", n_30, "of", n_total, "index discharges\n")
+cat("Rate:", round(100 * n_30 / n_total, 2), "%\n")
+hist(readmissions$days_to_readmit, breaks = 20, main = "Days to readmission", xlab = "Days", col = "coral")
+```
+
+## Summary
+
+Descriptive analytics and visualizations on the healthcare mock dataset: encounter mix, LOS distribution, claim costs by type, and readmission distribution. Suitable for stakeholder reporting and as input to predictive models.
