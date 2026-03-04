@@ -10,7 +10,7 @@
 
 - **Notebook**: `notebooks/python/time_series_pmpm_forecasting.ipynb`.
 - **PMPM**: Claims aggregated to service month; member count and total paid/charge; PMPM (per member per month) cost series. In production, member months often come from eligibility/membership data; this mock uses distinct patients per month as a proxy.
-- **Models**: SARIMA(1,0,1) and Holt-Winters exponential smoothing; Prophet is an alternative for seasonal series (add `prophet` and use in notebook if desired). Train/test split; evaluation with RMSE and MAPE.
+- **Models**: SARIMA(1,0,1), Holt-Winters exponential smoothing, and optional Prophet (runnable in notebook if `prophet` installed). Train/test split as a simple back-test; evaluation with RMSE and MAPE.
 - **Stack**: pandas, statsmodels. Production use would add back-testing, hyperparameter tuning, and pipeline automation (e.g. Airflow, Databricks). Scripts and DAG are designed to plug into production schedulers.
 
 ## Clustering & anomaly detection (Python)
@@ -24,7 +24,7 @@
 - **Target**: Binary `readmit_30` — whether an encounter had a 30-day readmission (from `readmissions.is_30_day`).
 - **Unit of analysis**: One row per encounter (index encounter).
 - **Features**: Length of stay, age at admission, diagnosis count per encounter, lab summary (mean result, count), encounter type (dummies).
-- **Model**: Random Forest (scikit-learn); train/test split 75/25, stratified.
+- **Model**: Random Forest (scikit-learn); train/test split 75/25, stratified. **Hyperparameter tuning**: GridSearchCV over n_estimators and max_depth (see notebook).
 - **Limitations**: No temporal leak (target uses only readmissions table); no prior utilization or comorbidity indices in this version. Model is for portfolio demonstration, not clinical use.
 
 ## R analytics
