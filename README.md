@@ -52,7 +52,7 @@ flowchart LR
 | JD requirement | Where demonstrated |
 |----------------|--------------------|
 | **Python & R** | Python: data generation, readmission model, EDA notebook. R: descriptive analytics and visualization (Rmd + script). |
-| **Machine learning** | 30-day readmission classification (Random Forest); **time series / PMPM forecasting** (SARIMA, exponential smoothing on claims/cost); **clustering** (KMeans); **anomaly detection** (Isolation Forest). Model evaluation: MAPE, RMSE. |
+| **Machine learning** | 30-day readmission classification (Random Forest; ROC-AUC and **average precision** for imbalance); **time series / PMPM forecasting** (SARIMA, exponential smoothing on claims/cost); **clustering** (KMeans); **anomaly detection** (Isolation Forest). Model evaluation: MAPE, RMSE. |
 | **Complex SQL** | `sql/feature_readmission.sql` (joins, CTEs, aggregations); `sql/report_utilization_kpis.sql` (reporting KPIs). |
 | **Dimensional / relational modeling** | `data/schema/ddl.sql` and `data/schema/README.md`: star-style relationships, reference tables, data dictionary, ER overview. |
 | **Healthcare / pharma domain** | Mock schema and data: patients, encounters, diagnoses, procedures, medications, labs, claims, readmissions, risk scores. |
@@ -70,7 +70,7 @@ notebooks/
   python/                  # Jupyter: readmission; time series/PMPM forecasting; clustering & anomaly detection
   r/                       # R Markdown: descriptive analytics & viz
 src/
-  python/                  # Data generation, readmission model script
+  python/                  # Data generation, readmission_features.py, readmission_model.py, time_series_forecast, etc.
   r/                       # R script: EDA summary
 sql/                       # Feature table, PMPM summary, utilization KPIs
 pipelines/                 # Orchestration + Airflow DAG example

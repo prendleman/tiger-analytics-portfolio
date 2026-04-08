@@ -21,8 +21,8 @@
 
 ## Evaluation
 
-- **Metrics**: Precision, recall, F1, ROC-AUC, confusion matrix (see notebook and script output).
-- **Limitations**: Class imbalance (few readmissions); no temporal validation or external holdout.
+- **Metrics**: Precision, recall, F1, ROC-AUC, **average precision (PR-AUC)**, confusion matrix (see notebook and script output). PR-AUC is reported because readmission is usually **imbalanced**—ROC alone can look strong while precision at a default threshold is poor.
+- **Limitations**: Class imbalance (few readmissions); no temporal validation or external holdout. Operational use would need threshold or cost-sensitive tuning.
 
 ## Ethical considerations and limitations
 

@@ -41,7 +41,7 @@ flowchart LR
 
 - **Synthetic data**: No PHI; Faker + pandas with fixed seeds so runs are reproducible. Schema mirrors real healthcare (patients, encounters, claims, diagnoses, etc.) so SQL and models transfer conceptually.
 - **Config-driven scale**: `config/demo.yaml` for a quick run (~1 min); default `config/config.yaml` or in-code CONFIG for full scale (50k patients, 200k encounters).
-- **Scripts + notebooks**: Every notebook has a corresponding script (e.g. `readmission_model.py`, `time_series_forecast.py`) so the pipeline and Airflow DAG can run without Jupyter.
+- **Scripts + notebooks**: Every notebook has a corresponding script (e.g. `readmission_model.py`, `time_series_forecast.py`) so the pipeline and Airflow DAG can run without Jupyter. **Readmission** feature/label logic lives in `readmission_features.py` and is shared by the script and `readmission_prediction.ipynb`.
 - **SQL dialect**: DDL and queries are written for SQL Server; most work in PostgreSQL with minimal changes (e.g. date functions). `monthly_pmpm_summary.sql` uses SQL Server `DATEADD`/`DATEDIFF`; for PostgreSQL use `date_trunc('month', submitted_date)`.
 - **MLOps**: Single orchestration script (`pipelines/run_pipeline.py`) and an example Airflow DAG show how steps would run in production; Spark script shows scalable aggregation.
 

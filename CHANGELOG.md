@@ -4,6 +4,12 @@
 
 (No unreleased changes.)
 
+## 2024-03 (Release 8)
+
+- **Readmission**: `src/python/readmission_features.py` — shared feature/label pipeline for the CLI and notebook (single source of truth).
+- **Metrics**: Script and notebook report **average precision (PR-AUC)**; notebook adds ROC and precision–recall plots and notes on imbalance; `classification_report(..., zero_division=0)` to avoid noisy warnings.
+- **Docs**: MODEL_CARD and RESULTS updated for PR-AUC and threshold/scoring guidance; README JD table mentions average precision.
+
 ## 2024-03 (Release 7)
 
 - **Pre-commit** — `.pre-commit-config.yaml`: Black, Ruff (with --fix), trailing-whitespace, end-of-file-fixer, check-yaml, check-merge-conflict. Optional: `pip install pre-commit && pre-commit install`.
