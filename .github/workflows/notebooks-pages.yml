@@ -1,0 +1,47 @@
+# Build static notebook HTML and deploy to GitHub Pages.
+# Repo settings → Pages → Source: GitHub Actions.
+name: Deploy notebooks to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Generate demo data
+        run: python src/python/generate_healthcare_data.py --config config/demo.yaml
+      - name: Export notebooks to HTML
+        run: python scripts/export_notebooks.py
+      - name: Write index page
+        run: python scripts/write_notebooks_index.py
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/notebooks
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment

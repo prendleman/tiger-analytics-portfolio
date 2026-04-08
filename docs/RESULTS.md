@@ -9,6 +9,8 @@ Summary of typical outputs when running the portfolio on **demo data** (`config/
 - **Typical test ROC-AUC**: ~0.85–0.92 (depends on class balance and features).
 - **Average precision (PR-AUC)**: Often much lower than ROC when readmissions are rare (e.g. order 0.05–0.15 on small demo sets)—more informative than ROC alone for ranking rare events.
 - **Note**: With demo data, the positive class is small; precision/recall for the readmit class at 0.5 threshold may be low. Full-scale data improves stability; use **threshold tuning** or **average precision** as the scoring metric when optimizing for the positive class.
+- **Temporal split** (`python src/python/readmission_model.py --split temporal`): trains on earlier discharges and tests on the latest chunk—closer to deployment; on synthetic data metrics often track near the random split.
+- **Recall@10%** and **top-decile lift**: CLI/notebook report what fraction of all readmits fall in the top-decile risk bucket and how concentrated readmits are vs baseline prevalence.
 
 ## PMPM time series
 

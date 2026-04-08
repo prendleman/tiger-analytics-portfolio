@@ -40,6 +40,6 @@
 ## Reproducibility
 
 - Generate data: `python src/python/generate_healthcare_data.py` (config in script).
-- Python model: `python src/python/readmission_model.py` or run `notebooks/python/readmission_prediction.ipynb`.
+- Python model: `python src/python/readmission_model.py` (optional `--split temporal` for discharge-date holdout) or run `notebooks/python/readmission_prediction.ipynb`.
 - R: `Rscript src/r/healthcare_eda.R` or knit `notebooks/r/healthcare_eda.Rmd`.
 - SQL: Run against a database populated with `data/schema/ddl.sql` and the CSVs (via ETL or bulk load).

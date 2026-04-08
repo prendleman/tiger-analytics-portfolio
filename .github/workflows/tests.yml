@@ -33,8 +33,10 @@ jobs:
         run: |
           python src/python/generate_healthcare_data.py --config config/demo.yaml
           python src/python/validate_data.py --data-dir data/raw
-      - name: Run readmission model
+      - name: Run readmission model (random split)
         run: python src/python/readmission_model.py
+      - name: Run readmission model (temporal split)
+        run: python src/python/readmission_model.py --split temporal
       - name: Run time series forecast
         run: python src/python/time_series_forecast.py
       - name: Pytest

@@ -1,8 +1,11 @@
 # Convenience targets. Use Python directly if make is not available (e.g. Windows).
-.PHONY: install demo test validate data-demo data-full pipeline export-notebooks
+.PHONY: install demo test validate data-demo data-full pipeline export-notebooks lock
 
 install:
 	pip install -r requirements.txt
+
+lock:
+	pip install pip-tools && pip-compile requirements.in -o requirements.txt
 
 data-demo:
 	python src/python/generate_healthcare_data.py --config config/demo.yaml

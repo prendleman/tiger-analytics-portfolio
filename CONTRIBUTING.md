@@ -55,6 +55,15 @@ pip install pip-tools
 pip-compile requirements.in -o requirements.txt
 ```
 
+Or: `make lock` (requires `make`).
+
+**CI and lock files:** GitHub Actions uses **Python 3.10**. Regenerate `requirements.txt` with Python 3.10 (or match CI) to avoid install drift:
+
+```bash
+py -3.10 -m pip install pip-tools
+py -3.10 -m piptools compile requirements.in -o requirements.txt
+```
+
 ## Code and data
 
 - **Data** in `data/raw/*.csv` is generated; do not commit large CSVs (they are gitignored). Commit only code, config, and docs.

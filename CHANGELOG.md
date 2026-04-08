@@ -4,6 +4,16 @@
 
 (No unreleased changes.)
 
+## 2024-03 (Release 9)
+
+- **Readmission evaluation** — `readmission_evaluation.py`: temporal split by discharge date, recall@10%, top-decile prevalence lift, best F1 threshold, illustrative cost-based threshold.
+- **CLI** — `readmission_model.py --split temporal|random`, `--test-size`; ranking metrics printed after PR-AUC.
+- **Tests** — `test_readmission_features.py`, `test_readmission_evaluation.py`.
+- **Streamlit** — `streamlit_app/readmission_explorer.py` + `requirements-app.txt` (optional install).
+- **GitHub Pages** — workflow `notebooks-pages.yml` exports notebooks + `write_notebooks_index.py`; enable Pages → GitHub Actions in repo settings.
+- **`pyproject.toml`** — pytest/ruff/black metadata; **`make lock`** for pip-compile.
+- **Docs** — `docs/INTERVIEW_WALKTHROUGH.md`.
+
 ## 2024-03 (Release 8)
 
 - **Readmission**: `src/python/readmission_features.py` — shared feature/label pipeline for the CLI and notebook (single source of truth).

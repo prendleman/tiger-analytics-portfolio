@@ -75,10 +75,13 @@ src/
 sql/                       # Feature table, PMPM summary, utilization KPIs
 pipelines/                 # Orchestration + Airflow DAG example
 config/                    # config.yaml (full), demo.yaml (quick run)
-scripts/                   # run_demo.py, push_to_github.ps1
+scripts/                   # run_demo.py, export_notebooks, write_notebooks_index
+streamlit_app/             # Optional Streamlit readmission UI (see requirements-app.txt)
 tests/                     # pytest: data generation, readmission model
 docs/                      # Methodology, design overview, limitations
 requirements.txt
+requirements-app.txt       # Optional: streamlit
+pyproject.toml             # pytest / ruff / black tool config
 LICENSE
 ```
 
@@ -110,6 +113,8 @@ python src/python/generate_healthcare_data.py
 
 ```bash
 python src/python/readmission_model.py
+# Temporal holdout by discharge date (reduces time leakage vs random split):
+python src/python/readmission_model.py --split temporal
 ```
 
 Or open and run `notebooks/python/readmission_prediction.ipynb` (Jupyter).
@@ -199,7 +204,9 @@ See `data/schema/README.md` for the full data dictionary and ER diagram.
 - **Methodology**: `docs/methodology.md` — target definition, features, model choice, and reproducibility notes.
 - **Design**: `docs/DESIGN.md` — data flow, design decisions, and trade-offs.
 - **Model card**: `docs/MODEL_CARD.md` (readmission), `docs/MODEL_CARD_TIMESERIES.md` (PMPM forecasting).
-- **Docs index**: [docs/README.md](docs/README.md) — links to all documentation. **Executive summary**: [docs/EXECUTIVE_SUMMARY.md](docs/EXECUTIVE_SUMMARY.md) — one-page stakeholder overview. **Results**: [docs/RESULTS.md](docs/RESULTS.md) — typical metrics on demo data.
+- **Docs index**: [docs/README.md](docs/README.md) — links to all documentation. **Executive summary**: [docs/EXECUTIVE_SUMMARY.md](docs/EXECUTIVE_SUMMARY.md). **Interview walkthrough**: [docs/INTERVIEW_WALKTHROUGH.md](docs/INTERVIEW_WALKTHROUGH.md). **Results**: [docs/RESULTS.md](docs/RESULTS.md).
+- **Static notebooks (GitHub Pages):** After enabling **Settings → Pages → GitHub Actions**, the `notebooks-pages` workflow publishes exported HTML under your site URL (typically `https://<user>.github.io/<repo>/`).
+- **Streamlit (optional):** `pip install -r requirements-app.txt`, then `streamlit run streamlit_app/readmission_explorer.py` (generate `data/raw` first).
 - **Changelog**: [CHANGELOG.md](CHANGELOG.md). **Citing**: [CITATION.cff](CITATION.cff). **Security**: [SECURITY.md](SECURITY.md).
 - **Troubleshooting**: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) — common issues. **Contributing**: [CONTRIBUTING.md](CONTRIBUTING.md).
 - **Export notebooks to HTML**: `python scripts/export_notebooks.py` (writes to `docs/notebooks/`; requires `nbconvert`).

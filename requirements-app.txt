@@ -1,0 +1,2 @@
+# Optional: interactive dashboard (not required for tests or Docker demo)
+streamlit>=1.28.0

@@ -16,6 +16,8 @@ def load_and_feature(data_dir: Path):
     X : pd.DataFrame
     y : pd.Series
     feature_cols : list[str]
+    discharge_date : pd.Series
+        Index-discharge date per row (for temporal train/test splits).
     """
     patients = pd.read_csv(data_dir / "patients.csv")
     encounters = pd.read_csv(
@@ -46,10 +48,11 @@ def load_and_feature(data_dir: Path):
     encounters = encounters.merge(lab_agg, on="encounter_id", how="left")
     encounters["lab_mean"] = encounters["lab_mean"].fillna(encounters["lab_mean"].median())
     encounters["lab_count"] = encounters["lab_count"].fillna(0).astype(int)
+    discharge_date = encounters["discharge_date"].copy()
     encounters = pd.get_dummies(encounters, columns=["encounter_type"], prefix="enc")
     feature_cols = ["los_days", "age", "diag_count", "lab_mean", "lab_count"] + [
         c for c in encounters.columns if c.startswith("enc_")
     ]
     X = encounters[feature_cols].fillna(0)
     y = encounters["readmit_30"]
-    return X, y, feature_cols
+    return X, y, feature_cols, discharge_date
